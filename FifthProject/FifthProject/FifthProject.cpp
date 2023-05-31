@@ -20,5 +20,12 @@ int main()
 	printf("result1: %d \n", result1);
 	printf("result2: %d \n", result2);
 	printf("result3: %d \n", result3);
+
+	int age = 27;
+	bool boolResult;
+
+	boolResult = (age < 20) ? true : false; // 삼항 연산문이며, 조건문이 포함되어 있다.
+											// (조건식) ? 참일 경우 : 거짓일 경우;
+	printf("Bool Result는 어떤 값? %d", boolResult);
 }
 
