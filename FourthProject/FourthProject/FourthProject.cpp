@@ -38,6 +38,7 @@ int RECOVERY_ONE_S_PHYSICAL_STRENGTH(int maxHp, int heal, int hp)
     return hp > maxHp ? maxHp : hp; //맞을 경우 왼쪽 값, 틀릴 경우 오른쪽 값 출력
                                     //로직은 힐량과 현재 체력을 합한 값이 최대HP 이상인 경우
                                     //최대 HP를 리턴하고 아닐 경우 현재 HP와 힐량을 더한 값을 리턴한다.
+    
 }
 
 int main()
@@ -85,7 +86,7 @@ int main()
 
     int num3 = 10;
     int num4 = 12;
-    int result2, result3, result4;
+    int result2, result3, result4; // result를 3개 선언한다.
 
     result2 = num3 == num4; // 거짓이므로 0을 반환
     result3 = num3 <= num4; // 참이므로 1을 반환
