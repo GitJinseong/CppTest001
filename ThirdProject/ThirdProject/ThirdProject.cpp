@@ -14,13 +14,10 @@ void CRITICAL_HIT_DAMAGE_PRN(int damage)
             printf("데미지 %f를 가했습니다.", critical);
         else
             printf("실패했습니다.");
-
 }
 
 int main()
 {
-
     std::cout << "Hello World!\n";
     CRITICAL_HIT_DAMAGE_PRN(100);
-
 }
