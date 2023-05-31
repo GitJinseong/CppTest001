@@ -16,13 +16,18 @@ int main()
     //PrintFunc(27);
 
     printf("숫자 값을 입력해주세요(1=가위, 2=바위, 3=보) -> ");
-
     int inputNumber = 0;
-    scanf_s("%d", &inputNumber); // 입력 받는 함수
-                                 // scanf_s 사용시 &를 붙여야 한다.
+    scanf_s("%d", inputNumber); // 입력 받는 함수
 
     ROCK_PAPER_SCISSORS(inputNumber);
 }
+
+//이런게 함수의 정의다.
+void PrintFunc(int age)
+{
+    printf("최진성, 나이: %d, 010-1234-5678\n\n", age);
+}
+
 
 // 가위, 바위, 보 함수 만들기
 // 플레이어는 1, 2, 3 중에 하나를 입력 받는다.
