@@ -24,9 +24,9 @@ void FIND_AREA_CIRCLE(int radius)
 {
     // 상수형 데이터 타입
     const float PI = 3.141592f;
-    float result;
+    float RESULT;   // 상수형 변수의 이름은 항상 대문자다.
 
     // 원의 반지름 구하는 기능
-    result = PI * radius * radius;
-    cout << "원의 넓이는 다음과 같습니다. \n" << result;
+    RESULT = PI * radius * radius;
+    cout << "원의 넓이는 다음과 같습니다. \n" << RESULT;
 }

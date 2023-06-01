@@ -21,11 +21,12 @@ int main()
     SPECIAL_CHARACTER_DISCRIMINATOR(text);
 
 
-    // printf의 새로운 사용법
-    printf("\n\n1은 1과 %s", (1 == 1) ? "맞다" : "틀리다");  // printf에 조건문을 사용할 수 있다.
-                                                        // 하지만 출력 결과에 맞는 기호가 필요하다.
-                                                        // 문자의 경우 %s, 숫자의 경우 %d, 상수의 경우 %f
-                                                        // 그러나 printf는 문자만 인식한다.
+        // printf의 새로운 사용법
+        printf("\n\n1은 1과 %s", (1 == 1) ? "같다" : "틀리다");  // printf에 조건문을 사용할 수 있다.
+                                                               // 하지만 출력 결과에 맞는 기호가 필요하다.
+                                                               // 문자의 경우 %s, 숫자의 경우 %d, 상수의 경우 %f
+                                                               // 그러나 삼항 연산자의 경우 출력 값 두가지의
+                                                               // 데이터 형식이 같아야 한다.
 }
 // 특수문자를 판별하는 함수
 void SPECIAL_CHARACTER_DISCRIMINATOR(char text)
@@ -33,5 +34,6 @@ void SPECIAL_CHARACTER_DISCRIMINATOR(char text)
     bool isSpecialCharacter = ('!' <= text && text <= '/') || (':' <= text && text <= '@') || 
         ('[' <= text && text <= '`') || ('{' <= text && text <= '~');   // 코드가 다 안보일 경우
                                                                         // 엔터로 내려도 된다.
-    cout << "입력하신 값은 " << (isSpecialCharacter == true ? "특수문자가 맞습니다." : "특수문자가 아닙니다.");
+    cout << "입력하신 값은 " << (isSpecialCharacter == true ? "특수문자가 맞습니다.\n" : "특수문자가 아닙니다.\n");
+    printf("입력하신 값은 %s", (isSpecialCharacter == true) ? "특수문자가 맞습니다.\n" : "특수문자가 아닙니다.\n");
 }
