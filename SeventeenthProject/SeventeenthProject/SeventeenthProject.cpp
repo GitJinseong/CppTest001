@@ -31,7 +31,7 @@ int main()
             {
                 cout << "* ";
             }
-            whileCount -= 1;
+            whileCount--;
         }
     }
     else
