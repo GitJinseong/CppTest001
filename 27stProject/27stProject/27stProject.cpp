@@ -15,12 +15,14 @@ void Walking();
 void Battle();
 void Profile();
 void StatUpgrade();
+int DamageCallback(int atk, int def);
 
 // 플레이어 스텟 //
 int level; // 레벨(이동시 1씩 상승)
 int hp = 50; // 체력
 int maxHp = 50; // 최대 체력
 int atk = 5; // 공격력
+int def = 0; // 방어력
 int gold; // 소지금
 
 /// <summary>
@@ -39,8 +41,7 @@ int gold; // 소지금
 int main()
 {
     // 함수 호출
-    //Choice();
-    Battle();
+    Choice();
 }
 // main()
 
@@ -56,6 +57,17 @@ void Choice()
     // 반복문
     while (whileValue == true)
     {
+        // 레벨이 6 이상일 경우(승리)
+        if (level >= 6)
+        {
+            // 문장 출력
+            system("CLS");
+            Sleep(300);
+            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(63) << "[알림]\n\n";
+            cout << setw(75) << "당신은 휼륭한 모험가가 되었습니다!";
+            Sleep(1234567890);
+            break;
+        }
         // 변수 선언
         char inputValue;
 
@@ -79,40 +91,40 @@ void Choice()
         switch (inputValue)
         {
             // '1'일 경우 > 걷는다
-            case ('1'):
-                // 변수 증감
-                whileValue = false;
+        case ('1'):
+            // 변수 증감
+            whileValue = false;
 
-                // 함수 호출
-                Walking();
+            // 함수 호출
+            Walking();
 
-                break;
+            break;
 
             // '2'일 경우 > 상태창 호출
-            case ('2'):
-                // 변수 증감
-                whileValue = false;
+        case ('2'):
+            // 변수 증감
+            whileValue = false;
 
-                Profile();
+            Profile();
 
-                break;
-            
+            break;
+
             // '3'일 경우 > 종료한다
-            case ('3'):
-                // 변수 증감
-                whileValue = false;
+        case ('3'):
+            // 변수 증감
+            whileValue = false;
 
-                break;
+            break;
 
             // 그 외
-            default:
-                // 문장 출력
-                Sleep(300);
-                cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(59) << "Error!";
-                Sleep(1000);
-                system("CLS");
+        default:
+            // 문장 출력
+            Sleep(300);
+            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(59) << "Error!";
+            Sleep(1000);
+            system("CLS");
 
-                break;
+            break;
         }
     }
 }
@@ -185,152 +197,152 @@ void Walking()
     // 장소 이동
     switch (gamblingValue)
     {
-        case 1:
+    case 1:
+        // 변수 증감
+        level++;
+
+        Sleep(500);
+        cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '산'으로 이동했습니다.\n\n\n\n\n";
+        cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
+
+        // 입력
+        gamblingValue2 = _getch();
+
+        // 문장 출력 > 조사중...
+        system("CLS");
+        cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
+        Sleep(200);
+        cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
+        system("CLS");
+
+        // 랜덤 값 초기화 & 계산
+        srand(time(NULL));
+        gamblingValue2 = rand() % 2;
+
+        if (gamblingValue2 == 1)
+        {
+            cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
+            cout << setw(45) << "" << "적이 출몰 하였습니다!!!";
+            Sleep(2000);
+            system("CLS");
+
+            // 함수 호출
+            Battle();
+        }
+        else
+        {
             // 변수 증감
-            level++;
+            hp = maxHp;
+            addGold = gamblingValue * 7;
+            gold = gold + addGold;
 
-            Sleep(500);
-            cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '산'으로 이동했습니다.\n\n\n\n\n";
-            cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
-
-            // 입력
-            gamblingValue2 = _getch();
-
-            // 문장 출력 > 조사중...
+            cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
+            cout << setw(36) << "" << "생명의 물을 발견하여 체력이 모두 회복됩니다!\n\n";
+            cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!\n\n";
+            cout << setw(45) << "" << "레벨이 1 상승 하였습니다!";
+            Sleep(3000);
             system("CLS");
-            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
-            Sleep(200);
-            cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
-            system("CLS");
-
-            // 랜덤 값 초기화 & 계산
-            srand(time(NULL));
-            gamblingValue2 = rand() % 2;
-
-            if (gamblingValue2 == 4)
-            {
-                cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n\n\n";
-                cout << setw(45) << "" << "적이 출몰 하였습니다!!!";
-                Sleep(2000);
-                system("CLS");
-
-                // 함수 호출
-                Battle();
-            }
-            else
-            {
-                // 변수 증감
-                hp = maxHp;
-                addGold = gamblingValue * 7;
-                gold = gold + addGold;
-
-                cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n\n\n";
-                cout << setw(36) << "" << "생명의 물을 발견하여 체력이 모두 회복됩니다!\n\n";
-                cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!\n\n";
-                cout << setw(45) << "" << "레벨이 1 상승 하였습니다!";
-                Sleep(3000);
-                system("CLS");
-
-                // 함수 호출
-                Choice();
-            }
-            break;
-
-        case 2:
-            // 변수 증감
-            level++;
-
-            Sleep(500);
-            cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '길'으로 이동했습니다.\n\n\n\n\n";
-            cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
-
-            // 입력
-            gamblingValue2 = _getch();
-
-            // 문장 출력 > 조사중...
-            system("CLS");
-            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
-            Sleep(200);
-            cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
-            
-            // 문장 출력
-            system("CLS");
-            cout << "\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n\n\n";
-            cout << setw(45) << "" << "레벨이 1 상승 하였습니다!\n\n";
-
-            // 랜덤 값 초기화 & 계산
-            srand(time(NULL));
-            gamblingValue2 = rand() % 2;
-
-            if (gamblingValue2 == 1)
-            {
-                // 변수 증감
-                addGold = gamblingValue * 9;
-                gold = gold + addGold;
-
-                // 문장 출력
-                cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!";
-                Sleep(3000);
-                system("CLS");
-            }
-            else
-            {
-                // 문장 출력
-                cout << setw(44) << "" << "아무것도 발견하지 못했습니다.";
-                Sleep(3000);
-                system("CLS");
-            }
 
             // 함수 호출
             Choice();
+        }
+        break;
 
-            break;
+    case 2:
+        // 변수 증감
+        level++;
 
-        case 3:
-            // 변수 증감
-            level++;
+        Sleep(500);
+        cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '길'으로 이동했습니다.\n\n\n\n\n";
+        cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
 
-            // 문장 출력
-            Sleep(500);
-            cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '강'으로 이동했습니다.\n\n\n\n\n";
-            cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
+        // 입력
+        gamblingValue2 = _getch();
 
-            // 입력
-            gamblingValue2 = _getch();
-
-            // 문장 출력 > 조사중...
-            system("CLS");
-            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
-            Sleep(200);
-            cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
+        // 문장 출력 > 조사중...
+        system("CLS");
+        cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
+        Sleep(200);
+        cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
             
+        // 문장 출력
+        system("CLS");
+        cout << "\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
+        cout << setw(45) << "" << "레벨이 1 상승 하였습니다!\n\n";
+
+        // 랜덤 값 초기화 & 계산
+        srand(time(NULL));
+        gamblingValue2 = rand() % 2;
+
+        if (gamblingValue2 == 1)
+        {
+            // 변수 증감
+            addGold = gamblingValue * 9;
+            gold = gold + addGold;
+
             // 문장 출력
+            cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!";
+            Sleep(3000);
             system("CLS");
-            cout << "\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n\n\n";
-            cout << setw(45) << "" << "레벨이 1 상승 하였습니다!\n\n";
+        }
+        else
+        {
+            // 문장 출력
+            cout << setw(44) << "" << "아무것도 발견하지 못했습니다.";
+            Sleep(3000);
+            system("CLS");
+        }
 
-            // 랜덤 값 초기화 & 계산
-            srand(time(NULL));
-            gamblingValue2 = rand() % 2;
+        // 함수 호출
+        Choice();
 
-            if (gamblingValue2 == 1)
-            {
-                // 변수 증감
-                addGold = gamblingValue * 9;
-                gold = gold + addGold;
+        break;
 
-                // 문장 출력
-                cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!";
-                Sleep(3000);
-                system("CLS");
-            }
-            else
-            {
-                // 문장 출력
-                cout << setw(44) << "" << "아무것도 발견하지 못했습니다.";
-                Sleep(3000);
-                system("CLS");
-            }
+    case 3:
+        // 변수 증감
+        level++;
+
+        // 문장 출력
+        Sleep(500);
+        cout << "\n\n\n\n\n\n\n" << setw(45) << "" << "당신은 '강'으로 이동했습니다.\n\n\n\n\n";
+        cout << setw(43) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(47) << "> ";
+
+        // 입력
+        gamblingValue2 = _getch();
+
+        // 문장 출력 > 조사중...
+        system("CLS");
+        cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(54) << "";
+        Sleep(200);
+        cout << "조"; Sleep(100); cout << "사"; Sleep(100); cout << "중"; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100); cout << "."; Sleep(100);
+            
+        // 문장 출력
+        system("CLS");
+        cout << "\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
+        cout << setw(45) << "" << "레벨이 1 상승 하였습니다!\n\n";
+
+        // 랜덤 값 초기화 & 계산
+        srand(time(NULL));
+        gamblingValue2 = rand() % 2;
+
+        if (gamblingValue2 == 1)
+        {
+            // 변수 증감
+            addGold = gamblingValue * 9;
+            gold = gold + addGold;
+
+            // 문장 출력
+            cout << setw(45) << "" << "골드를 +" << addGold << " 획득 하였습니다!";
+            Sleep(3000);
+            system("CLS");
+        }
+        else
+        {
+            // 문장 출력
+            cout << setw(44) << "" << "아무것도 발견하지 못했습니다.";
+            Sleep(3000);
+            system("CLS");
+        }
 
             // 함수 호출
             Choice();
@@ -354,10 +366,12 @@ void Battle()
     // 변수 선언
     string monsterName;
     int monsterHp;
+    int monsterMaxHp;
     int monsterAtk;
     int monsterDef;
     int monsterReward;
     int randomValue;
+    int attackChance = true;
 
     // 주사위 굴리기(1~6)
     srand(time(NULL));
@@ -366,68 +380,123 @@ void Battle()
     // 몬스터 설정
     switch (randomValue)
     {
-        // 주사위가 1일 경우
-        case (1):
-            monsterName = "강도";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 1일 경우
+    case (1):
+        monsterName = "강도";
+        monsterHp = 50;
+        monsterMaxHp = 50;
+        monsterAtk = 5;
+        monsterDef = 0;
+        monsterReward = 12;
+        break;
 
-        // 주사위가 2일 경우
-        case (2):
-            monsterName = "산적";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 2일 경우
+    case (2):
+        monsterName = "산적";
+        monsterHp = 75;
+        monsterMaxHp = 75;
+        monsterAtk = 7;
+        monsterDef = 2;
+        monsterReward = 23;
+        break;
 
-        // 주사위가 3일 경우
-        case (3):
-            monsterName = "약탈자";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 3일 경우
+    case (3):
+        monsterName = "약탈자";
+        monsterHp = 100;
+        monsterMaxHp = 100;
+        monsterAtk = 9;
+        monsterDef = 4;
+        monsterReward = 34;
+        break;
 
-        // 주사위가 4일 경우
-        case (4):
-            monsterName = "범죄자";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 4일 경우
+    case (4):
+        monsterName = "범죄자";
+        monsterHp = 150;
+        monsterMaxHp = 150;
+        monsterAtk = 13;
+        monsterDef = 7;
+        monsterReward = 56;
+        break;
         
-        // 주사위가 5일 경우
-        case (5):
-            monsterName = "소매치기";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 5일 경우
+    case (5):
+        monsterName = "소매치기";
+        monsterHp = 300;
+        monsterMaxHp = 300;
+        monsterAtk = 19;
+        monsterDef = 12;
+        monsterReward = 78;
+        break;
 
-        // 주사위가 6일 경우
-        case (6):
-            monsterName = "살인마";
-            monsterHp = 0;
-            monsterAtk = 0;
-            monsterDef = 0;
-            monsterReward = 0;
-            break;
+    // 주사위가 6일 경우
+    case (6):
+        monsterName = "살인마";
+        monsterHp = 500;
+        monsterMaxHp = 500;
+        monsterAtk = 35;
+        monsterDef = 20;
+        monsterReward = 89;
+        break;
     }
 
+    // 자동 전투 반복문
     while (true)
     {
-        // 문장 출력
-        cout << "[" << monsterName << "]";
+        // 변수 선언
+        int damage;
 
-        Sleep(100000000);
+        // 몬스터 정보 출력
+        cout << "\n\n\n\n" << setw(52) << "" << "[" << monsterName << "]\n\n";
+        cout << setw(49) << "" << "체력 : " << monsterHp << " / " << monsterMaxHp << "\n\n";
+        cout << setw(49) << "" << "공격력 : " << monsterAtk << "\n\n";
+        cout << setw(49) << "" << "방어력 : " << monsterDef << "\n\n";
 
+        // 플레이어 정보 출력
+        cout << "\n\n\n" << setw(53) << "" << "[나]\n\n";
+        cout << setw(49) << "" << "체력 : " << hp << " / " << maxHp << "\n\n";
+        cout << setw(49) << "" << "공격력 : " << atk << "\n\n";
+        cout << setw(49) << "" << "방어력 : " << def << "\n";
+
+        Sleep(1500);
+        system("CLS");
+
+        // 플레이어의 공격
+        if (attackChance == true)
+        {
+            // 데미지 계산
+            damage = DamageCallback(atk, monsterDef);
+            monsterHp = monsterHp - damage;
+
+            // 플레이어의 공격
+            Sleep(300);
+            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(50) << "" << "[나의 공격!]\n\n";
+            cout << setw(38) << "" << "나는 " << monsterName << "(을)를 향해 주먹을 휘둘렀다!\n\n";
+            cout << setw(47) << "" << "들어간 데미지 : " << damage << "\n\n\n\n\n\n";
+            Sleep(2000);
+            system("CLS");
+
+            attackChance = false;
+        }
+        // 적의 공격
+        else
+        {
+            // 데미지 계산
+            damage = DamageCallback(monsterAtk, def);
+            hp = hp - damage;
+
+            // 적의 공격
+            Sleep(300);
+            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(50) << "" << "[적의 공격!]\n\n";
+            cout << setw(38) << "" << monsterName << "(이)가 나를 향해 주먹을 휘둘렀다.\n\n";
+            cout << setw(47) << "" << "들어간 데미지 : " << damage << "\n\n\n\n\n\n";
+            Sleep(2000);
+            system("CLS");
+            attackChance = true;
+        }
+
+        // 플레이어의 체력이 0이 될 경우
         if (hp <= 0)
         {
             system("CLS");
@@ -435,6 +504,28 @@ void Battle()
             cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(62) << "[GAME OVER]";
             cout << "\n\n" << setw(68) << "당신은 사망하였습니다!";
             Sleep(1234567890);
+            break;
+        }
+        // 몬스터의 체력이 0이 될 경우
+        else if (monsterHp <= 0)
+        {
+            // 변수 증감
+            gold = gold + monsterReward;
+            level++;
+
+            system("CLS");
+            Sleep(300);
+            cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(62) << "[전투 결과]";
+            cout << "\n\n" << setw(68) << "당신은 승리하였습니다.";
+            Sleep(2000);
+            system("CLS");
+            cout << "\n\n\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
+            cout << setw(45) << "" << "레벨이 1 상승 하였습니다!\n\n";
+            cout << setw(45) << "" << "골드를 +" << monsterReward << " 획득 하였습니다!";
+            Sleep(3000);
+            system("CLS");
+            Choice();
+            break;
         }
     }
 }
@@ -515,6 +606,9 @@ void Profile()
     }
 }
 
+// <summary>
+// 스텟 강화 함수
+// </summary>
 void StatUpgrade()
 {
     // 변수 선언
@@ -531,13 +625,16 @@ void StatUpgrade()
         // 스텟 증감
         maxHp = maxHp + (statAddValue * 4);
         atk = atk + (statAddValue * 2);
+        def = def + (statAddValue * 2);
         level--;
 
         // 문장 출력
         Sleep(500);
-        cout << "\n\n\n\n\n\n" << setw(42) << "" << "최대 체력이 +" << (statAddValue * 4) << " 상승 하였습니다.\n\n\n";
-        cout << setw(42) << "" << "공격력이 +" << (statAddValue * 2) << " 상승 하였습니다.\n\n\n\n";
-        cout << setw(37) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(41) << "> ";
+        cout << "\n\n\n\n\n" << setw(52) << "" << "[알림]\n\n";
+        cout << setw(42) << "" << "최대 체력이 +" << (statAddValue * 4) << " 상승 하였습니다.\n\n";
+        cout << setw(42) << "" << "공격력이 +" << (statAddValue * 2) << " 상승 하였습니다.\n\n";
+        cout << setw(42) << "" << "방어력이 +" << (statAddValue * 2) << " 상승 하였습니다.\n\n\n\n";
+        cout << setw(38) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(42) << "> ";
 
         // 입력
         inputValue = _getch();
@@ -556,4 +653,18 @@ void StatUpgrade()
 
     // 함수 호출
     Choice();
+}
+
+// <summary>
+// 데미지 콜백 함수
+// </summary>
+int DamageCallback(int atk, int def)
+{
+    // 변수 선언
+    int damage;
+
+    // 데미지 계산
+    damage = atk < def ? 0 : atk - def;
+
+    return damage;
 }
