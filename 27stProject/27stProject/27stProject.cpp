@@ -1,11 +1,11 @@
 ﻿
+// 헤더 파일 호출
 #include <iostream>
 #include <conio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
 #include <iomanip> // 공백 함수 setw(int)를 사용할 때 필요함
-
 using namespace std;
 
 // 전방 선언 //
@@ -16,6 +16,7 @@ void Battle();
 void Profile();
 void StatUpgrade();
 int DamageCallback(int atk, int def);
+int CriticalCallBack();
 
 // 플레이어 스텟 //
 int level; // 레벨(이동시 1씩 상승)
@@ -43,7 +44,6 @@ int main()
     // 함수 호출
     Choice();
 }
-// main()
 
 /// <summary>
 /// [선택 시스템]
@@ -57,7 +57,7 @@ void Choice()
     // 반복문
     while (whileValue == true)
     {
-        // 레벨이 6 이상일 경우(승리)
+        // 레벨(이동횟수)이 6 이상일 경우(승리)
         if (level >= 6)
         {
             // 문장 출력
@@ -222,7 +222,7 @@ void Walking()
         if (gamblingValue2 == 1)
         {
             cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
-            cout << setw(45) << "" << "적이 출몰 하였습니다!!!";
+            cout << setw(46) << "" << "적이 출몰 하였습니다!!!";
             Sleep(2000);
             system("CLS");
 
@@ -349,6 +349,7 @@ void Walking()
 
             break;
 
+        // 그 외
         default:
             break;
     }
@@ -377,7 +378,7 @@ void Battle()
     srand(time(NULL));
     randomValue = rand() % 5 + 1;
 
-    // 몬스터 설정
+    // 몬스터 설정(주사위를 굴려서 결정)
     switch (randomValue)
     {
     // 주사위가 1일 경우
@@ -446,6 +447,10 @@ void Battle()
     {
         // 변수 선언
         int damage;
+        int critical;
+
+        // 크리티컬 계산
+        critical = CriticalCallBack();
 
         // 몬스터 정보 출력
         cout << "\n\n\n\n" << setw(52) << "" << "[" << monsterName << "]\n\n";
@@ -467,13 +472,13 @@ void Battle()
         {
             // 데미지 계산
             damage = DamageCallback(atk, monsterDef);
-            monsterHp = monsterHp - damage;
+            monsterHp = monsterHp - (damage * critical);
 
-            // 플레이어의 공격
+            // 문장 출력
             Sleep(300);
             cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(50) << "" << "[나의 공격!]\n\n";
             cout << setw(38) << "" << "나는 " << monsterName << "(을)를 향해 주먹을 휘둘렀다!\n\n";
-            cout << setw(47) << "" << "들어간 데미지 : " << damage << "\n\n\n\n\n\n";
+            cout << setw(47) << "" << "들어간 데미지 : " << (damage * critical) << "\n\n\n\n\n\n";
             Sleep(2000);
             system("CLS");
 
@@ -484,13 +489,13 @@ void Battle()
         {
             // 데미지 계산
             damage = DamageCallback(monsterAtk, def);
-            hp = hp - damage;
+            hp = hp - (damage * critical);
 
-            // 적의 공격
+            // 문장 출력
             Sleep(300);
             cout << "\n\n\n\n\n\n\n\n\n\n\n" << setw(50) << "" << "[적의 공격!]\n\n";
             cout << setw(38) << "" << monsterName << "(이)가 나를 향해 주먹을 휘둘렀다.\n\n";
-            cout << setw(47) << "" << "들어간 데미지 : " << damage << "\n\n\n\n\n\n";
+            cout << setw(47) << "" << "들어간 데미지 : " << (damage * critical) << "\n\n\n\n\n\n";
             Sleep(2000);
             system("CLS");
             attackChance = true;
@@ -531,7 +536,6 @@ void Battle()
 }
 /// <summary>
 /// 플레이어의 스텟을 호출한다.
-/// 레벨(이동 횟수) 소비 -> 도박시스템 호출 -> 스텟 상승
 /// </summary>
 void Profile()
 {
@@ -666,5 +670,18 @@ int DamageCallback(int atk, int def)
     // 데미지 계산
     damage = atk < def ? 0 : atk - def;
 
+
     return damage;
+}
+
+int CriticalCallBack()
+{
+    // 변수 선언
+    int critical;
+
+    // 크리티컬 계산
+    srand(time(NULL));
+    critical = rand() % 2 + 1;
+
+    return critical;
 }
