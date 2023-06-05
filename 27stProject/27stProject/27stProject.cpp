@@ -9,12 +9,12 @@
 using namespace std;
 
 // 전방 선언 //
-int Gambling();
 void Choice();
 void Walking();
 void Battle();
 void Profile();
 void StatUpgrade();
+int Gambling();
 int DamageCallback(int atk, int def);
 int CriticalCallBack();
 
@@ -27,17 +27,7 @@ int def = 0; // 방어력
 int gold; // 소지금
 
 /// <summary>
-/// [간단한 텍스트 RPG]
-/// 전역 변수와 함수들을 호출하여
 /// 간단하게 rpg 게임을 구현한다.
-/// 
-/// [시스템 로직]
-/// 선택 시스템
-///     배틀 시스템
-///         도박 시스템
-///             전투 시스템
-///             스텟 시스템
-///         걷기 시스템
 /// </summary>
 int main()
 {
@@ -449,9 +439,6 @@ void Battle()
         int damage;
         int critical;
 
-        // 크리티컬 계산
-        critical = CriticalCallBack();
-
         // 몬스터 정보 출력
         cout << "\n\n\n\n" << setw(52) << "" << "[" << monsterName << "]\n\n";
         cout << setw(49) << "" << "체력 : " << monsterHp << " / " << monsterMaxHp << "\n\n";
@@ -470,6 +457,9 @@ void Battle()
         // 플레이어의 공격
         if (attackChance == true)
         {
+            // 크리티컬 계산
+            critical = CriticalCallBack();
+
             // 데미지 계산
             damage = DamageCallback(atk, monsterDef);
             monsterHp = monsterHp - (damage * critical);
@@ -487,6 +477,9 @@ void Battle()
         // 적의 공격
         else
         {
+            // 크리티컬 계산
+            critical = CriticalCallBack();
+
             // 데미지 계산
             damage = DamageCallback(monsterAtk, def);
             hp = hp - (damage * critical);
