@@ -663,7 +663,6 @@ int DamageCallback(int atk, int def)
     // 데미지 계산
     damage = atk < def ? 0 : atk - def;
 
-
     return damage;
 }
 
