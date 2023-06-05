@@ -29,12 +29,12 @@ int main()
 //좌우 이동가능
 void Description005()
 {
+    int whileValue = 0;
+
     while (true)
     {
         // 길을 걷는 사람 1
         char board[5] = { 0, };
-        int inputValue;
-        int whileValue = 0;
         // { board를 초기화 하는 로직
         for (int i = 0; i < 5; i++)
         {
@@ -45,9 +45,6 @@ void Description005()
             }
         }
 
-        inputValue = _getch();
-        whileValue++;
-        
         // } board를 초기화 하는 로직
 
         // { board를 출력하는 로직
@@ -60,8 +57,11 @@ void Description005()
         {
             break;
         }
-        Sleep(300);
+
+        _getch();
+
+        whileValue++;
     }
     printf("\n\n");
-    // } board를 출력하는 로직
-}
+        // } board를 출력하는 로직
+}   
