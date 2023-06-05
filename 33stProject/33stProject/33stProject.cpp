@@ -5,7 +5,8 @@
 #include <conio.h>
 #include <windows.h>
 
-void Description005();
+void ProjectHard();
+void ProjectVeryHard();
 
 /// <summary>
 /// 
@@ -13,7 +14,8 @@ void Description005();
 /// <returns></returns>
 int main()
 {
-    Description005();
+    //ProjectHard();
+    ProjectVeryHard();
 }
 
 // 0 * * * *
@@ -27,7 +29,7 @@ int main()
 // ...          ->      * * * * 0       Press Any Key
 //위의 프로그램을 수정해서 a로 0이 왼쪽, d로 0이 오른쪽 이동 가능하도록 만들기(very hard).
 //좌우 이동가능
-void Description005()
+void ProjectHard()
 {
     int whileValue = 0;
 
@@ -61,7 +63,53 @@ void Description005()
         _getch();
 
         whileValue++;
-    }
-    printf("\n\n");
+        printf("\n\n");
         // } board를 출력하는 로직
+    }
 }   
+
+void ProjectVeryHard()
+{
+    int whileValue = 0;
+    char inputValue;
+
+    while (true)
+    {
+        // 길을 걷는 사람 1
+        char board[5] = { 0, };
+        // { board를 초기화 하는 로직
+        for (int i = 0; i < 5; i++)
+        {
+            board[i] = '*';
+            if (i == whileValue)
+            {
+                board[whileValue] = '0';
+            }
+        }
+
+        // } board를 초기화 하는 로직
+
+        // { board를 출력하는 로직
+        for (int i = 0; i < 5; i++)
+        {
+            printf("%c ", board[i]);
+        }
+
+        printf("\n\n");
+        // } board를 출력하는 로직
+
+        inputValue = _getch();
+
+        switch (inputValue)
+        {
+        case 'a':
+            whileValue++;
+            break;
+        case 'd':
+            whileValue--;
+            break;
+        default:
+            break;
+        }
+    }
+}
