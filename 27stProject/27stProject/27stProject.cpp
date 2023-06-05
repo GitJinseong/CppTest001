@@ -19,11 +19,11 @@ int DamageCallback(int atk, int def);
 int CriticalCallBack();
 
 // 플레이어 스텟 //
-int level; // 레벨(이동시 1씩 상승)
+int level = 3; // 레벨(이동시 1씩 상승)
 int hp = 50; // 체력
 int maxHp = 50; // 최대 체력
-int atk = 5; // 공격력
-int def = 0; // 방어력
+int atk = 10; // 공격력
+int def = 5; // 방어력
 int gold; // 소지금
 
 /// <summary>
@@ -136,15 +136,15 @@ int Gambling()
     // 랜덤 값 출력
     randomValue = rand() % 10 + 1;
 
-    if (randomValue > 5) // 50% 산일 경우
+    if (randomValue > 3) // 70% 산일 경우
     {
         randomValue = 1;
     }
-    else if (randomValue > 2)
+    else if (randomValue > 1)
     {
-        randomValue = 2; // 30% 길일 경우
+        randomValue = 2; // 20% 길일 경우
     }
-    else // 20% 강일 경우
+    else // 10% 강일 경우
     {
         randomValue = 3;
     }
@@ -207,9 +207,9 @@ void Walking()
 
         // 랜덤 값 초기화 & 계산
         srand(time(NULL));
-        gamblingValue2 = rand() % 2;
+        gamblingValue2 = rand() % 3;
 
-        if (gamblingValue2 == 1)
+        if (gamblingValue2 >= 1)
         {
             cout << "\n\n\n\n\n\n\n\n" << setw(52) << "" << "[조사 결과]\n\n";
             cout << setw(46) << "" << "적이 출몰 하였습니다!!!";
@@ -546,6 +546,7 @@ void Profile()
     cout << setw(40) << "" << "레벨 : " << level << "\n\n";
     cout << setw(40) << "" << "체력 : " << hp << " / " << maxHp << "\n\n";
     cout << setw(40) << "" << "공격력 : " << atk << "\n\n";
+    cout << setw(40) << "" << "방어력 : " << def << "\n\n";
     cout << setw(40) << "" << "소지금 : " << gold << "\n\n\n\n";
     cout << setw(38) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(42) << "> ";
 
@@ -620,17 +621,20 @@ void StatUpgrade()
     if (level >= 1)
     {
         // 스텟 증감
-        maxHp = maxHp + (statAddValue * 4);
-        atk = atk + (statAddValue * 2);
-        def = def + (statAddValue * 2);
+        maxHp = maxHp + (statAddValue * 20);
+        atk = atk + (statAddValue * 10);
+        def = def + (statAddValue * 5);
         level--;
+
+        // 체력 회복
+        hp = maxHp;
 
         // 문장 출력
         Sleep(500);
         cout << "\n\n\n\n\n" << setw(52) << "" << "[알림]\n\n";
-        cout << setw(42) << "" << "최대 체력이 +" << (statAddValue * 4) << " 상승 하였습니다.\n\n";
-        cout << setw(42) << "" << "공격력이 +" << (statAddValue * 2) << " 상승 하였습니다.\n\n";
-        cout << setw(42) << "" << "방어력이 +" << (statAddValue * 2) << " 상승 하였습니다.\n\n\n\n";
+        cout << setw(42) << "" << "최대 체력이 +" << (statAddValue * 20) << " 상승 하였습니다.\n\n";
+        cout << setw(42) << "" << "공격력이 +" << (statAddValue * 10) << " 상승 하였습니다.\n\n";
+        cout << setw(42) << "" << "방어력이 +" << (statAddValue * 5) << " 상승 하였습니다.\n\n\n\n";
         cout << setw(38) << "" << "▶ 아무키를 눌러 상호작용 하시오.\n\n" << setw(42) << "> ";
 
         // 입력
