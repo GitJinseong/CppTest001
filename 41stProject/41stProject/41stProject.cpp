@@ -48,6 +48,7 @@ void StartLotto()
         }
 
         _getch();
+
         cout << "\n\n";
     }
 }
