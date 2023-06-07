@@ -9,7 +9,6 @@
 using namespace std;
 
 void StartCardGame();
-void ShuffleNumber(char** firstNumber, char** secondNumber);
 
 int main()
 {
@@ -32,12 +31,6 @@ int main()
 // │       │
 // │     ♠5│ 
 // ---------
-//
-// [로직]
-// 모양 배열 만들기
-// 숫자 배열 만들기
-// 셔플하기
-// 출력시 모양 배열과 / 숫자 배열 출력하기
 void StartCardGame()
 {
     // char 변수명[길이][용량] 이런식으로 사용가능하다.
@@ -45,29 +38,19 @@ void StartCardGame()
     char cardPattern[4][8] = {"Spade", "Diamond", "Heart", "Clover"};
     char cardNumber[13][3] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
-    const int SHUFFLE_COUNT = 100;
-    int randomIndex1, randomIndex2 = 0;
-    int randomIndex3, randomIndex4 = 0;
-
-    srand(time(NULL));
-
-    for (int i = 0; i < SHUFFLE_COUNT; i++)
+    while (true)
     {
+        int randomIndex1, randomIndex2 = 0;
 
+        srand(time(NULL));
+
+        randomIndex1 = rand() % 4;
+        randomIndex2 = rand() % 13;
+
+        cout << cardPattern[randomIndex1] << " / " << cardNumber[randomIndex2] << "\n";
+
+        _getch();
+
+        Sleep(1000);
     }
-
-    cout << cardPattern[0] << " / " << cardNumber[0];
 }
-
-
-void ShuffleNumber(char* firstNumber,  char* secondNumber)
-{
-    cout << *firstNumber;
-    char temp = 0;
-    temp = *firstNumber;
-    *firstNumber = *secondNumber;
-    *secondNumber = temp;
-}
-
-// 위 방법은 나중에 할 수 있따.
-// 현재 배운 방법으로는 어렵다.
