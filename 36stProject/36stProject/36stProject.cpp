@@ -22,7 +22,7 @@ int main()
     printf("정수형 배열의 길이 %d\n", sizeof(numbers) / sizeof(int));   // sizeof() / sizeof(자료형)으로 배열의 길이 예측 가능. 
     printf("문자열 배열의 크기 %d\n", sizeof(string_));                 // sizeof()로 배열의 크기를 예측 가능.
     printf("문자열 배열의 크기 %d\n", sizeof(string2));                 // char의 경우 1bit라서 바로 계산이 가능하지만
-                                                                     // 다른 타입의 경우 bit가 달라서 ex)나누기로 역산해야 한다.
+    printf("문자열 배열의 크기 %d\n", sizeof(stringCopy));              // 다른 타입의 경우 bit가 달라서 ex)나누기로 역산해야 한다.
 
     // 위에서 선언된 문자열(문자배열)을 수정하는 예시
     string_[0] = 'G';
