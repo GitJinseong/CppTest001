@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#include <iomanip>  // setw(int)를 사용하기 위한 헤더파일
 
 using namespace std;
 
 void StartSlidingGame(int size);
 void ShuffleNumbers(int* numArray, int arraySize);
-int CheckAnswer(int* examArray, int* answerArray, int arraySize);
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
 
         cin >> inputValue;
 
-        if (3 <= inputValue && inputValue <= 6)
+        if (2 <= inputValue && inputValue <= 6)
         {
             // 3~6 사이의 매개변수 입력
             StartSlidingGame(inputValue);
@@ -42,155 +42,179 @@ int main()
 // 클리어가 불가능한 퍼즐은 존재하지 않도록 구현할 것(Very Hard)
 void StartSlidingGame(int size)
 {
- 
-    int answerPaper[6][6] = { -1, };
-    int examPaper[6][6] = { -1, };
-    int count = 1;
-    int playerLocation_X = 0;
-    int playerLocation_Y = 0;
-    int* ptrAnswerPaper = &answerPaper[0][0];
-    int* ptrExamPaper = &examPaper[0][0];
-    char inputValue;
-
-    // 숫자 배열 넣기
-    for (int y = 0; y < size; y++)
-    {
-
-        for (int x = 0; x < size; x++)
-        {
-            answerPaper[y][x] = count;
-            examPaper[y][x] = count;
-            count++;
-        }
-
-    }
-
-    cout << "로딩중...";
-
-    // 셔플 함수 호출
-    ShuffleNumbers(ptrExamPaper, size);
-
-    srand(time(NULL));
-    playerLocation_X = rand() % (size);
-    playerLocation_Y = rand() % (size);
-    int a = playerLocation_X;
-    int b = playerLocation_Y;
-
-    // 랜덤한 위치의 값 0으로 설정
-    answerPaper[playerLocation_X][playerLocation_Y] = 0;
-    examPaper[playerLocation_X][playerLocation_Y] = 0;
-
-    Sleep(1000);
-
-    system("CLS");
-    
     while (true)
     {
+        int answer[7][7] = { 0, };
+        int exam[7][7] = { 0, };
+        int count = 1;
+        int player_X = 0;
+        int player_Y = 0;
+        int* ptrExam = &exam[0][0];
+        char inputValue;
 
-        // 정답 확인
-        if (CheckAnswer(ptrExamPaper, ptrAnswerPaper, size) == true)
-        {
-            cout << "승리하셨습니다!";
-            Sleep(100000000);
-        }
-
-        // 화면 출력
+        // 숫자 배열 넣기
         for (int y = 0; y < size; y++)
         {
 
             for (int x = 0; x < size; x++)
             {
-
-                if (examPaper[y][x] == 0)
-                {
-
-                    playerLocation_Y = y;
-                    playerLocation_X = x;
-                    cout << " " << " " << " ";
-                    continue;
-
-                }
-
-                    cout << " " << examPaper[y][x] << " ";
-
+                answer[y][x] = count;
+                exam[y][x] = count;
+                count++;
             }
-
-            cout << "\n";
 
         }
 
-        cout << "\n\n";
+        cout << "로딩중...";
 
-        // w, a, s, d 키로 이동하기
-        // 상 하 좌 우 에 있는 값이 0 이상일 경우
-        // 체인지하기
-        inputValue = _getch();
+        // 셔플 함수 호출
+        ShuffleNumbers(ptrExam, size);
 
-        int temp = 0;
-        int temp2 = 0;
+        // 랜덤한 위치의 값 0으로 설정
+        srand(time(NULL));
 
-        switch (inputValue)
-        {
-        case 'w':
-            temp = examPaper[playerLocation_Y][playerLocation_X];
-            temp2 = examPaper[playerLocation_Y - 1][playerLocation_X];
+        player_X = rand() % (size);
+        player_Y = rand() % (size);
 
-            if (temp2 > 0)
-            {
-                playerLocation_Y = playerLocation_Y ? --playerLocation_Y : playerLocation_Y;
-                examPaper[playerLocation_Y + 1][playerLocation_X] = temp2;
-                examPaper[playerLocation_Y][playerLocation_X] = temp;
-            }
+        exam[player_X][player_Y] = 0;
 
-            break;
-
-        case 's':
-            temp = examPaper[playerLocation_Y][playerLocation_X];
-            temp2 = examPaper[playerLocation_Y + 1][playerLocation_X];
-
-            if (temp2 > 0)
-            {
-                playerLocation_Y = playerLocation_Y < size - 1 ? ++playerLocation_Y : playerLocation_Y;
-                examPaper[playerLocation_Y - 1][playerLocation_X] = temp2;
-                examPaper[playerLocation_Y][playerLocation_X] = temp;
-            }
-
-            break;
-
-        case 'a':
-            temp = examPaper[playerLocation_Y][playerLocation_X];
-            temp2 = examPaper[playerLocation_Y][playerLocation_X - 1];
-
-            if (temp2 > 0)
-            {
-                playerLocation_X = playerLocation_X ? --playerLocation_X : playerLocation_X;
-                examPaper[playerLocation_Y][playerLocation_X + 1] = temp2;
-                examPaper[playerLocation_Y][playerLocation_X] = temp;
-            }
-
-            break;
-
-        case 'd':
-            temp = examPaper[playerLocation_Y][playerLocation_X];
-            temp2 = examPaper[playerLocation_Y][playerLocation_X + 1];
-
-            if (temp2 > 0)
-            {
-                playerLocation_X = playerLocation_X < size - 1 ? ++playerLocation_X : playerLocation_X;
-                examPaper[playerLocation_Y][playerLocation_X - 1] = temp2;
-                examPaper[playerLocation_Y][playerLocation_X] = temp;
-            }
-
-            break;
-
-        default:
-            break;
-        }
+        // 대기
+        Sleep(1000);
 
         system("CLS");
 
-    }
+        // 반복문으로 게임 플레이
+        while (true)
+        {
 
+            // 정답 확인
+            // 답안지와 푼 문제가 일치할 경우 승리
+            int answerCount = 0;
+
+            for (int y = 0; y < size; y++)
+            {
+
+                for (int x = 0; x < size; x++)
+                {
+
+                    if (exam[y][x] == answer[y][x])
+                    {
+                        answerCount++;
+                    }
+
+                }
+
+            }
+
+            cout << "\n\n\n" << setw(10) << "" << "[시스템] 맞은 갯수 : " << answerCount + 1 << "\n\n";
+
+            if (answerCount >= (size * size) - 1)
+            {
+                system("CLS");
+                cout << "승리하셨습니다!\n";
+                Sleep(10000000);
+            }
+
+            // 화면 출력
+            for (int y = 0; y < size; y++)
+            {
+                cout << setw(18) << "";
+                for (int x = 0; x < size; x++)
+                {
+
+                    if (exam[y][x] == 0)
+                    {
+
+                        player_Y = y;
+                        player_X = x;
+                        cout << " " << " " << " ";
+                        continue;
+
+                    }
+
+                    cout << " " << exam[y][x] << " ";
+
+                }
+
+                cout << "\n";
+
+            }
+
+            cout << "\n\n";
+
+            cout << "*공백은 보너스로 맞은 갯수에서 +1 카운트됩니다." << "\n\n";
+
+            // w, a, s, d 키로 이동하기
+            // 근처에 있는 값이 0 이상일 경우
+            // 이동시 서로 값을 바꾼다
+            inputValue = _getch();
+
+            int temp = 0;
+
+            int temp2 = 0;
+            switch (inputValue)
+            {
+            case 'w':
+                temp = exam[player_Y][player_X];
+                temp2 = exam[player_Y - 1][player_X];
+
+                if (temp2 > 0)
+                {
+                    player_Y = player_Y ? --player_Y : player_Y;
+                    exam[player_Y + 1][player_X] = temp2;
+                    exam[player_Y][player_X] = temp;
+                }
+
+                break;
+
+            case 's':
+                temp = exam[player_Y][player_X];
+                temp2 = exam[player_Y + 1][player_X];
+
+                if (temp2 > 0)
+                {
+                    player_Y = player_Y < size - 1 ? ++player_Y : player_Y;
+                    exam[player_Y - 1][player_X] = temp2;
+                    exam[player_Y][player_X] = temp;
+                }
+
+                break;
+
+            case 'a':
+                temp = exam[player_Y][player_X];
+                temp2 = exam[player_Y][player_X - 1];
+
+                if (temp2 > 0)
+                {
+                    player_X = player_X ? --player_X : player_X;
+                    exam[player_Y][player_X + 1] = temp2;
+                    exam[player_Y][player_X] = temp;
+                }
+
+                break;
+
+            case 'd':
+                temp = exam[player_Y][player_X];
+                temp2 = exam[player_Y][player_X + 1];
+
+                if (temp2 > 0)
+                {
+                    player_X = player_X < size - 1 ? ++player_X : player_X;
+                    exam[player_Y][player_X - 1] = temp2;
+                    exam[player_Y][player_X] = temp;
+                }
+
+                break;
+
+            default:
+                break;
+            }
+
+            system("CLS");
+
+        }
+    }
+    
 }
 
 void ShuffleNumbers(int* numArray, int arraySize)
@@ -213,33 +237,6 @@ void ShuffleNumbers(int* numArray, int arraySize)
         temp = *(numArray + num1);
         *(numArray + num1) = *(numArray + num2);
         *(numArray + num2) = temp;
-    }
-
-}
-
-int CheckAnswer(int* examArray, int* answerArray, int arraySize)
-{
-
-    int size = arraySize * arraySize;
-    int count = 0;
-
-    for (int i = 0; i < size; i++)
-    {
-
-        if (*(examArray + i) == *(answerArray + i))
-        {
-            count++;
-        }
-
-    }
-
-    if (count == size)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
     }
 
 }
